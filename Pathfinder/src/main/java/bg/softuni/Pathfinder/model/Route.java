@@ -3,6 +3,7 @@ package bg.softuni.Pathfinder.model;
 import bg.softuni.Pathfinder.model.enums.Level;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,8 +13,10 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "gpx_coordinates", columnDefinition = "LONGTEXT")
@@ -22,24 +25,33 @@ public class Route {
     @Enumerated(EnumType.STRING)
     private Level level;
 
-    private String values;
-
     @ManyToOne(optional = false)
     private User author;
 
     @Column(name = "video_url")
     private String videoUrl;
 
+    @OneToMany(targetEntity = Comment.class, mappedBy = "route")
+    private Set<Comment> comments;
+
+    @OneToMany(targetEntity = Picture.class, mappedBy = "route")
+    private Set<Picture> pictures;
+
+    @ManyToMany
+    private Set<Category> categories;
+
     public Route() {
+        this.comments = new HashSet<>();
+        this.pictures = new HashSet<>();
+        this.categories = new HashSet<>();
     }
 
-    public Route(long id, String name, String description, String gpxCoordinates, Level level, String values, User author, String videoUrl) {
+    public Route(long id, String name, String description, String gpxCoordinates, Level level, User author, String videoUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.gpxCoordinates = gpxCoordinates;
         this.level = level;
-        this.values = values;
         this.author = author;
         this.videoUrl = videoUrl;
     }
@@ -82,14 +94,6 @@ public class Route {
 
     public void setLevel(Level level) {
         this.level = level;
-    }
-
-    public String getValues() {
-        return values;
-    }
-
-    public void setValues(String values) {
-        this.values = values;
     }
 
     public User getAuthor() {

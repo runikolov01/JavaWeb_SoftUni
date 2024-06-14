@@ -111,4 +111,28 @@ public class Route {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 }

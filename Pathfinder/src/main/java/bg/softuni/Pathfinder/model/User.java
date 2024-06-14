@@ -1,10 +1,10 @@
 package bg.softuni.Pathfinder.model;
 
+import bg.softuni.Pathfinder.model.enums.UserLevel;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private Level level;
+    private UserLevel level;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -77,11 +77,11 @@ public class User {
         this.email = email;
     }
 
-    public Level getLevel() {
+    public UserLevel getLevel() {
         return level;
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(UserLevel level) {
         this.level = level;
     }
 

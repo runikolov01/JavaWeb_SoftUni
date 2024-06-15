@@ -6,18 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class RouteController {
-    private RouteService routeService;
+    private final RouteService routeService;
 
     public RouteController(RouteService routeService) {
         this.routeService = routeService;
     }
 
     @GetMapping("/routes")
-    public String openRoutesPage(Model model) {
-        RouteShortInfoDTO randomRoute = routeService.getRandomRoute();
-        model.addAttribute("route", randomRoute);
+    public String routes(Model model) {
+        List<RouteShortInfoDTO> routes = routeService.getAllRoutes();
+
+        model.addAttribute("allRoutes", routes);
 
         return "routes";
     }

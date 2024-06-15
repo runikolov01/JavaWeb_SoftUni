@@ -21,8 +21,8 @@
 <div class="wrapper">
     <!-- Navigation -->
     <header>
-    <nav class="main-nav">
-        <ul>
+        <nav class="main-nav">
+            <ul>
                 <li>
                     <a href="/">Home</a>
                 </li>
@@ -35,7 +35,7 @@
                 <li>
                     <a href="/">About</a>
                 </li>
-				<li>
+                <li>
                     <a href="/">Add new route</a>
                 </li>
                 <li>
@@ -47,16 +47,18 @@
                 <li>
                     <a href="/">Logout</a>
                 </li>
-        </ul>
-    </nav>
-</header>
+            </ul>
+        </nav>
+    </header>
 
     <section class="road">
-        <img th:src="${route.imageUrl}" alt="Title image">
-        <div>
-            <h2 th:text="${route.name}" ></h2>
-            <p th:text = "${route.description}"></p>
-            <a href="/" class="btn">Learn More</a>
+        <div th:each="singleRoute : ${allRoutes}">
+            <img th:src="${singleRoute.imageUrl}" alt="Title image">
+            <div>
+                <h2 th:text="${singleRoute.name}"></h2>
+                <p th:text="${singleRoute.description}"></p>
+                <a href="/" class="btn">Learn More</a>
+            </div>
         </div>
     </section>
 </div>

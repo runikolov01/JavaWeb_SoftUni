@@ -41,4 +41,18 @@ public class User {
     public User() {
         this.roles = new HashSet<>();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", level=" + level +
+                ", roles=" + roles +
+                '}';
+    }
 }

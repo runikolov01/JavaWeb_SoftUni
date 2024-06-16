@@ -1,6 +1,7 @@
 package bg.softuni.Pathfinder.web;
 
 
+import bg.softuni.Pathfinder.model.dto.UserLoginDTO;
 import bg.softuni.Pathfinder.model.dto.UserRegisterDTO;
 import bg.softuni.Pathfinder.model.enums.Level;
 import bg.softuni.Pathfinder.service.UserService;
@@ -31,12 +32,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid UserRegisterDTO data,
+    public String registerUser(UserRegisterDTO data,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("registerData", data);
-
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerData", bindingResult);
             return "register";
         }
         userService.register(data);
@@ -46,6 +47,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String openLoginpage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(UserLoginDTO loginData) {
+
         return "login";
     }
 

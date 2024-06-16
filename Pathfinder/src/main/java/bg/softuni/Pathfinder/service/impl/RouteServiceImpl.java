@@ -50,8 +50,8 @@ public class RouteServiceImpl implements RouteService {
     private RouteShortInfoDTO mapToShortInfo(Route route) {
         RouteShortInfoDTO dto = modelMapper.map(route, RouteShortInfoDTO.class);
 
-        Optional<Picture> first = route.getPictures().stream().findFirst();
-        dto.setImageUrl(first.get().getUrl());
+//        Optional<Picture> first = route.getPictures().stream().findFirst();
+//        dto.setImageUrl(first.get().getUrl());
 
         return dto;
     }

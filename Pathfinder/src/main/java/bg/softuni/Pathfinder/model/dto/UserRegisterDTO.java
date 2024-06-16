@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserRegisterDTO {
-    @NotEmpty
-    @NotNull
+    @NotBlank
+    @Size(min = 2)
     private String username;
 
     @NotEmpty

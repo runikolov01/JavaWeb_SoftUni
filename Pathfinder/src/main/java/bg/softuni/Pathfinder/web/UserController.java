@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("users")
 public class UserController {
     private final UserService userService;
 
@@ -20,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/register")
+    @GetMapping("/register")
     public String openRegistrationPage(Model model) {
         model.addAttribute("registerData", new UserRegisterDTO());
         model.addAttribute("levels", Level.values());
@@ -28,7 +30,7 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/users/register")
+    @PostMapping("/register")
     public String registerUser(@Valid UserRegisterDTO data,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
@@ -42,7 +44,7 @@ public class UserController {
         return "redirect:/users/login";
     }
 
-    @GetMapping("/users/login")
+    @GetMapping("/login")
     public String openLoginpage() {
         return "login";
     }

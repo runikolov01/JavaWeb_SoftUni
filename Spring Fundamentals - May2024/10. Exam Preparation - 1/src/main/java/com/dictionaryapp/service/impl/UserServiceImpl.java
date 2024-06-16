@@ -1,6 +1,7 @@
 package com.dictionaryapp.service.impl;
 
 import com.dictionaryapp.model.entity.User;
+import com.dictionaryapp.model.entity.UserLoginDTO;
 import com.dictionaryapp.model.entity.UserRegisterDTO;
 import com.dictionaryapp.repo.UserRepository;
 import com.dictionaryapp.service.UserService;
@@ -38,5 +39,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(mapped);
 
         return true;
+    }
+
+    @Override
+    public boolean loginUser(UserLoginDTO userLoginDTO) {
+        User user = userRepository.getUserByUsername(userLoginDTO.getUsername());
+        if (user != null && passwordEncoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
+            return true;
+        }
+        return false;
     }
 }

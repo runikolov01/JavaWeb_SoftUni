@@ -1,5 +1,6 @@
 package com.dictionaryapp.controller;
 
+import com.dictionaryapp.model.entity.UserLoginDTO;
 import com.dictionaryapp.model.entity.UserRegisterDTO;
 import com.dictionaryapp.service.UserService;
 import jakarta.validation.Valid;
@@ -9,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -23,6 +23,11 @@ public class UserController {
     @ModelAttribute("registerData")
     public UserRegisterDTO createEmptyDTO() {
         return new UserRegisterDTO();
+    }
+
+    @ModelAttribute("loginData")
+    public UserLoginDTO loginData() {
+        return new UserLoginDTO();
     }
 
     @GetMapping("/index")
@@ -58,8 +63,23 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String openLoginPage() {
+    public String openLoginPage(Model model) {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginProcess(@Valid UserLoginDTO data,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors() || !userService.loginUser(data)) {
+            redirectAttributes.addFlashAttribute("loginData", data);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.loginData", bindingResult);
+
+            return "redirect:/login";
+        }
+
+        return "redirect:/index";
     }
 
 

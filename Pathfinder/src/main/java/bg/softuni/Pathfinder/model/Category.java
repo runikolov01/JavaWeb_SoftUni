@@ -3,6 +3,13 @@ package bg.softuni.Pathfinder.model;
 import bg.softuni.Pathfinder.model.enums.CategoryType;
 import jakarta.persistence.*;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -15,38 +22,4 @@ public class Category {
 
     @Column(columnDefinition = "TEXT")
     private String description;
-
-    public Category() {
-
-    }
-
-    public Category(long id, CategoryType name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public CategoryType getName() {
-        return name;
-    }
-
-    public void setName(CategoryType name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

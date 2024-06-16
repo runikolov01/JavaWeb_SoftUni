@@ -22,7 +22,6 @@ public class UserRegisterDTO {
     private String confirmPassword;
 
     public UserRegisterDTO() {
-
     }
 
     public String getUsername() {

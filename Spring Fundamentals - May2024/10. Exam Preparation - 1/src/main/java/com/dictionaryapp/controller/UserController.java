@@ -30,18 +30,8 @@ public class UserController {
         return new UserLoginDTO();
     }
 
-    @GetMapping("/index")
-    public String openIndexPage() {
-        return "index";
-    }
-
-    @GetMapping("/home")
-    public String openHomePage() {
-        return "home";
-    }
-
     @GetMapping("/register")
-    public String openRegisterPage(Model model) {
+    public String viewRegister() {
         return "register";
     }
 
@@ -51,7 +41,7 @@ public class UserController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes
     ) {
-        if (bindingResult.hasErrors() || !userService.registerUser(data)) {
+        if (bindingResult.hasErrors() || !userService.register(data)) {
             redirectAttributes.addFlashAttribute("registerData", data);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.registerData", bindingResult);
@@ -63,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String openLoginPage(Model model) {
+    public String viewLogin() {
         return "login";
     }
 
@@ -81,7 +71,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        boolean success = userService.loginUser(data);
+        boolean success = userService.login(data);
 
         if (!success) {
             redirectAttributes.addFlashAttribute("loginData", data);
@@ -93,10 +83,10 @@ public class UserController {
         return "redirect:/home";
     }
 
+    @PostMapping("/logout")
+    public String logout() {
+        userService.logout();
 
-    @GetMapping("/word-add")
-    public String openAddingWordPage() {
-        return "word-add";
+        return "redirect:/";
     }
-
 }

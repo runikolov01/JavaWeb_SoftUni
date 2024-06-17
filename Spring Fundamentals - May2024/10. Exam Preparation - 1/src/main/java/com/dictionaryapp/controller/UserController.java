@@ -79,6 +79,13 @@ public class UserController {
             return "redirect:/login";
         }
 
+        boolean success = userService.loginUser(data);
+        if (!success) {
+            redirectAttributes.addFlashAttribute("loginData", data);
+            redirectAttributes.addFlashAttribute("userPassMismatch", true);
+            return "redirect:/login";
+        }
+
         return "redirect:/index";
     }
 

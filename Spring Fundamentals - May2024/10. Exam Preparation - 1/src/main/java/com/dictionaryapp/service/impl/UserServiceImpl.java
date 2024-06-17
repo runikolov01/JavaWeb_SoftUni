@@ -45,17 +45,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean loginUser(UserLoginDTO userLoginDTO) {
-        Optional<User> byUsername = userRepository.getUserByUsername(userLoginDTO.getUsername());
+        Optional<User> byUsername = userRepository.findByUsernameAndPassword(userLoginDTO.getUsername(), passwordEncoder.encode(userLoginDTO.getPassword()));
+
+
         if (byUsername.isEmpty()) {
             return false;
         }
         User user = byUsername.get();
 
-        if (user.getPassword().equals(passwordEncoder.encode(userLoginDTO.getPassword()))) {
-            return true;
-        }
-
         //add to session
+//        byUsername.map(user -> addToSession)
+//                .isPresent();
+
 
         return true;
     }

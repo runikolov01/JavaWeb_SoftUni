@@ -68,10 +68,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginProcess(@Valid UserLoginDTO data,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors() || !userService.loginUser(data)) {
+    public String doLogin(
+            @Valid UserLoginDTO data,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginData", data);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.loginData", bindingResult);
@@ -80,13 +82,15 @@ public class UserController {
         }
 
         boolean success = userService.loginUser(data);
+
         if (!success) {
             redirectAttributes.addFlashAttribute("loginData", data);
             redirectAttributes.addFlashAttribute("userPassMismatch", true);
-            return "redirect:/login";
+
+            return "redirect:login";
         }
 
-        return "redirect:/index";
+        return "redirect:/home";
     }
 
 
